@@ -16,9 +16,11 @@ const Tabs = () => {
     <Tab.Navigator
       screenOptions={{
         tabBarShowLabel: false,
+        headerShown: false,
         tabBarStyle: {
           backgroundColor: colors.primary,
           borderTopColor: 'transparent',
+          height: 105,
         },
       }}>
       <Tab.Screen
@@ -32,9 +34,53 @@ const Tabs = () => {
           },
         }}
       />
-      {/* <Tab.Screen name="Portfolio" component={Portfolio} />
-      <Tab.Screen name="Profile" component={Profile} />
-      <Tab.Screen name="Market" component={Market} /> */}
+      <Tab.Screen
+        name="Portfolio"
+        component={Portfolio}
+        options={{
+          tabBarIcon: ({focused}: {focused: boolean}) => {
+            return (
+              <TabIcon
+                focused={focused}
+                label="Portfolio"
+                icon={icons.portfolioIcon}
+              />
+            );
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Trade"
+        component={Home}
+        options={{
+          tabBarIcon: ({focused}: {focused: boolean}) => {
+            return (
+              <TabIcon
+                focused={focused}
+                label="Trade"
+                icon={icons.tradeIcon}
+                isTrade={true}
+              />
+            );
+          },
+        }}
+      />
+      <Tab.Screen name="Market" component={Market} />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          tabBarIcon: ({focused}: {focused: boolean}) => {
+            return (
+              <TabIcon
+                focused={focused}
+                label="Profile"
+                icon={icons.profileIcon}
+              />
+            );
+          },
+        }}
+      />
     </Tab.Navigator>
   );
 };

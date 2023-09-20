@@ -1,11 +1,14 @@
 import {Text, View} from 'react-native';
 import React from 'react';
+import SafeArea from '../components/atoms/safe-area';
 
 const Home = () => {
   return (
-    <View>
-      <Text>Home</Text>
-    </View>
+    <SafeArea>
+      <View>
+        <Text>Home</Text>
+      </View>
+    </SafeArea>
   );
 };
 
