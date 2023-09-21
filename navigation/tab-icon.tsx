@@ -18,8 +18,8 @@ const TabIcon = ({focused, icon, label, isTrade}: TabIconProps) => {
         style={{
           alignItems: 'center',
           justifyContent: 'center',
-          width: 55,
-          height: 55,
+          width: 60,
+          height: 60,
           borderRadius: 30,
           backgroundColor: colors.black,
         }}>
@@ -36,7 +36,7 @@ const TabIcon = ({focused, icon, label, isTrade}: TabIconProps) => {
           style={{
             color: colors.white,
             ...fonts.h4,
-            marginTop: 5,
+            marginTop: 8,
           }}>
           Trade
         </Text>

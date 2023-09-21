@@ -1,4 +1,6 @@
 import React from 'react';
+import type {PropsWithChildren} from 'react';
+import {TouchableOpacity} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import {colors} from '../theme';
@@ -9,7 +11,25 @@ import Market from '../screens/market';
 import TabIcon from './tab-icon';
 import {icons} from '../constants';
 
+export type TabBarCustomeButtomProps = PropsWithChildren<{
+  onPress: () => void;
+}>;
+
 const Tab = createBottomTabNavigator();
+
+function TabBarCustomeButtom({children, onPress}: TabBarCustomeButtomProps) {
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
+      {children}
+    </TouchableOpacity>
+  );
+}
 
 const Tabs = () => {
   return (
@@ -63,9 +83,31 @@ const Tabs = () => {
               />
             );
           },
+          tabBarButton: Props => {
+            return (
+              <TabBarCustomeButtom
+                {...Props}
+                onPress={() => console.log('trade button')}
+              />
+            );
+          },
         }}
       />
-      <Tab.Screen name="Market" component={Market} />
+      <Tab.Screen
+        name="Market"
+        component={Market}
+        options={{
+          tabBarIcon: ({focused}: {focused: boolean}) => {
+            return (
+              <TabIcon
+                focused={focused}
+                label="Market"
+                icon={icons.marketIcon}
+              />
+            );
+          },
+        }}
+      />
       <Tab.Screen
         name="Profile"
         component={Profile}
