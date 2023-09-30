@@ -1,4 +1,4 @@
-export const holding = [
+export const holding: {id: string; qty: number}[] = [
   {
     id: 'bitcoin',
     qty: 888,

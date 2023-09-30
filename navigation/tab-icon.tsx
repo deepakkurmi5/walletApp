@@ -1,5 +1,5 @@
 import {Image, Text, View} from 'react-native';
-import type {ImageSourcePropType, StyleProp, ImageStyle} from 'react-native';
+import type {ImageSourcePropType, ImageStyle} from 'react-native';
 import React from 'react';
 import {colors, fonts} from '../theme';
 
@@ -8,10 +8,10 @@ interface TabIconProps {
   label: String;
   focused: Boolean;
   icon: ImageSourcePropType;
-  iconStyle?: StyleProp<ImageStyle>;
+  iconStyle?: ImageStyle | null;
 }
 
-const TabIcon = ({focused, icon, label, isTrade}: TabIconProps) => {
+const TabIcon = ({focused, icon, label, isTrade, iconStyle}: TabIconProps) => {
   if (isTrade) {
     return (
       <View
@@ -30,6 +30,7 @@ const TabIcon = ({focused, icon, label, isTrade}: TabIconProps) => {
             width: 20,
             height: 20,
             tintColor: colors.white,
+            ...iconStyle,
           }}
         />
         <Text
@@ -53,6 +54,7 @@ const TabIcon = ({focused, icon, label, isTrade}: TabIconProps) => {
           width: 22,
           height: 22,
           tintColor: focused ? colors.white : colors.secondary,
+          ...iconStyle,
         }}
       />
       <Text

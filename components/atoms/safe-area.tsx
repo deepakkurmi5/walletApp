@@ -10,8 +10,8 @@ const SafeArea = ({children}: PropsWithChildren) => {
   return (
     <View
       style={{
-        paddingTop: insets.top,
-        paddingBottom: insets.bottom,
+        // paddingTop: insets.top,
+        // paddingBottom: insets.bottom,
         paddingLeft: insets.left,
         paddingRight: insets.right,
         flex: 1,

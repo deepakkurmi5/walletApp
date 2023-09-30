@@ -10,6 +10,7 @@ import Profile from '../screens/profile';
 import Market from '../screens/market';
 import TabIcon from './tab-icon';
 import {icons} from '../constants';
+import useTrade from '../contexts/trade-context';
 
 export type TabBarCustomeButtomProps = PropsWithChildren<{
   onPress: () => void;
@@ -32,6 +33,8 @@ function TabBarCustomeButtom({children, onPress}: TabBarCustomeButtomProps) {
 }
 
 const Tabs = () => {
+  const {isTradeVisible, setIsTradeVisible} = useTrade();
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -40,7 +43,7 @@ const Tabs = () => {
         tabBarStyle: {
           backgroundColor: colors.primary,
           borderTopColor: 'transparent',
-          height: 105,
+          height: 120,
         },
       }}>
       <Tab.Screen
@@ -48,9 +51,18 @@ const Tabs = () => {
         component={Home}
         options={{
           tabBarIcon: ({focused}: {focused: boolean}) => {
-            return (
-              <TabIcon focused={focused} label="Home" icon={icons.homeIcon} />
-            );
+            if (!isTradeVisible) {
+              return (
+                <TabIcon focused={focused} label="Home" icon={icons.homeIcon} />
+              );
+            }
+          },
+        }}
+        listeners={{
+          tabPress: e => {
+            if (isTradeVisible) {
+              e.preventDefault();
+            }
           },
         }}
       />
@@ -59,13 +71,22 @@ const Tabs = () => {
         component={Portfolio}
         options={{
           tabBarIcon: ({focused}: {focused: boolean}) => {
-            return (
-              <TabIcon
-                focused={focused}
-                label="Portfolio"
-                icon={icons.portfolioIcon}
-              />
-            );
+            if (!isTradeVisible) {
+              return (
+                <TabIcon
+                  focused={focused}
+                  label="Portfolio"
+                  icon={icons.portfolioIcon}
+                />
+              );
+            }
+          },
+        }}
+        listeners={{
+          tabPress: e => {
+            if (isTradeVisible) {
+              e.preventDefault();
+            }
           },
         }}
       />
@@ -78,7 +99,15 @@ const Tabs = () => {
               <TabIcon
                 focused={focused}
                 label="Trade"
-                icon={icons.tradeIcon}
+                icon={isTradeVisible ? icons.closeIcon : icons.tradeIcon}
+                iconStyle={
+                  isTradeVisible
+                    ? {
+                        width: 15,
+                        height: 15,
+                      }
+                    : null
+                }
                 isTrade={true}
               />
             );
@@ -87,7 +116,7 @@ const Tabs = () => {
             return (
               <TabBarCustomeButtom
                 {...Props}
-                onPress={() => console.log('trade button')}
+                onPress={() => setIsTradeVisible(!isTradeVisible)}
               />
             );
           },
@@ -98,13 +127,22 @@ const Tabs = () => {
         component={Market}
         options={{
           tabBarIcon: ({focused}: {focused: boolean}) => {
-            return (
-              <TabIcon
-                focused={focused}
-                label="Market"
-                icon={icons.marketIcon}
-              />
-            );
+            if (!isTradeVisible) {
+              return (
+                <TabIcon
+                  focused={focused}
+                  label="Market"
+                  icon={icons.marketIcon}
+                />
+              );
+            }
+          },
+        }}
+        listeners={{
+          tabPress: e => {
+            if (isTradeVisible) {
+              e.preventDefault();
+            }
           },
         }}
       />
@@ -113,13 +151,22 @@ const Tabs = () => {
         component={Profile}
         options={{
           tabBarIcon: ({focused}: {focused: boolean}) => {
-            return (
-              <TabIcon
-                focused={focused}
-                label="Profile"
-                icon={icons.profileIcon}
-              />
-            );
+            if (!isTradeVisible) {
+              return (
+                <TabIcon
+                  focused={focused}
+                  label="Profile"
+                  icon={icons.profileIcon}
+                />
+              );
+            }
+          },
+        }}
+        listeners={{
+          tabPress: e => {
+            if (isTradeVisible) {
+              e.preventDefault();
+            }
           },
         }}
       />

@@ -1,11 +1,17 @@
 import {View, Text} from 'react-native';
 import React from 'react';
+import SafeArea from '../components/atoms/safe-area';
+import MainLayout from './main-layout';
 
 const Profile = () => {
   return (
-    <View>
-      <Text>Profile</Text>
-    </View>
+    <SafeArea>
+      <MainLayout>
+        <View>
+          <Text>Profile</Text>
+        </View>
+      </MainLayout>
+    </SafeArea>
   );
 };
 
