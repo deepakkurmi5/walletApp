@@ -2,7 +2,7 @@ import * as shape from 'd3-shape';
 import {scaleLinear} from 'd3-scale';
 import {parse} from 'react-native-redash';
 
-import data from './data.json';
+import chart from '../../json/chart.json';
 import {metrics} from '../../theme';
 
 interface Amount {
@@ -43,7 +43,7 @@ interface Prices {
   all: DataPoints;
 }
 
-const values = data.data.prices as Prices;
+const values = chart.data.prices as Prices;
 const POINTS = 60;
 
 const buildGraph = (datapoints: DataPoints, label: string) => {
@@ -55,12 +55,10 @@ const buildGraph = (datapoints: DataPoints, label: string) => {
   const dates = formattedValues.map(value => value[1]);
   const scaleX = scaleLinear()
     .domain([Math.min(...dates), Math.max(...dates)])
-    .range([0, metrics.width]);
+    .range([metrics.width, 0]);
   const minPrice = Math.min(...prices);
   const maxPrice = Math.max(...prices);
-  const scaleY = scaleLinear()
-    .domain([minPrice, maxPrice])
-    .range([metrics.width, 0]);
+  const scaleY = scaleLinear().domain([minPrice, maxPrice]).range([150, 0]);
   return {
     label,
     minPrice,
