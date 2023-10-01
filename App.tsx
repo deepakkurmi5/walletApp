@@ -9,6 +9,7 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {SWRConfig} from 'swr';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 import swrConfig from './swr-config';
 import {TradeProvider} from './contexts/trade-context';
@@ -19,9 +20,11 @@ function App(): JSX.Element {
     <TradeProvider>
       <SafeAreaProvider>
         <SWRConfig value={swrConfig}>
-          <NavigationContainer>
-            <Tabs />
-          </NavigationContainer>
+          <GestureHandlerRootView style={{flex: 1}}>
+            <NavigationContainer>
+              <Tabs />
+            </NavigationContainer>
+          </GestureHandlerRootView>
         </SWRConfig>
       </SafeAreaProvider>
     </TradeProvider>

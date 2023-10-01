@@ -8,20 +8,10 @@ import {colors, sizes} from '../theme';
 import BalanceInfo from '../components/atoms/balance-info';
 import IconTextButton from '../components/atoms/icon-text-button';
 import {icons} from '../constants';
-import Chart from '../components/organisms/chart';
-import useCoinMarket from '../hooks/use-coin-market';
+import Graph from '../components/organisms/graph';
 
 const Home = () => {
   const {data: myHolding, isLoading} = useHoldings({
-    currency: 'usd',
-    orderBy: 'market_cap_desc',
-    page: 1,
-    per_page: 10,
-    priceChangePer: '7d',
-    sparkline: true,
-  });
-
-  const {data: coins} = useCoinMarket({
     currency: 'usd',
     orderBy: 'market_cap_desc',
     page: 1,
@@ -38,11 +28,11 @@ const Home = () => {
     );
   }
 
-  const totalWallet = myHolding.reduce((acc: number, b: {total: number}) => {
+  const totalWallet = myHolding?.reduce((acc: number, b: {total: number}) => {
     return acc + b.total;
   }, 0);
 
-  const valueChange = myHolding.reduce(
+  const valueChange = myHolding?.reduce(
     (acc: number, b: {holding_value_change_24d: number}) => {
       return acc + b.holding_value_change_24d;
     },
@@ -98,14 +88,14 @@ const Home = () => {
           </View>
         </View>
 
-        {/* Chart */}
+        <Graph />
 
-        <Chart
+        {/* Chart */}
+        {/* <Chart
           containerStyle={{
             marginTop: sizes.padding * 2,
           }}
-          chartPrices={coins[0]?.sparkline_in_7d?.price}
-        />
+        /> */}
       </MainLayout>
     </SafeArea>
   );
