@@ -9,7 +9,7 @@ const WalletInfo = ({
   myHolding,
   loading,
 }: {
-  myHolding: {holding_value_change_24d: number; total: number}[];
+  myHolding: {holding_value_change_7d: number; total: number}[];
   loading: boolean;
 }) => {
   if (loading) {
@@ -20,12 +20,12 @@ const WalletInfo = ({
     );
   }
   const totalWallet = myHolding?.reduce((acc: number, b: {total: number}) => {
-    return acc + b.total;
+    return acc + (b.total || 0);
   }, 0);
 
   const valueChange = myHolding?.reduce(
-    (acc: number, b: {holding_value_change_24d: number}) => {
-      return acc + b.holding_value_change_24d;
+    (acc: number, b: {holding_value_change_7d: number}) => {
+      return acc + (b.holding_value_change_7d || 0);
     },
     0,
   );

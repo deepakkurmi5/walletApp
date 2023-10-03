@@ -6,7 +6,7 @@ import {holding} from '../data';
 interface ApiItemProps {
   id: string;
   current_price: number;
-  price_change_percentage_24h: number;
+  price_change_percentage_7d_in_currency: number;
   symbol: string;
   name: string;
   image: string;
@@ -23,7 +23,7 @@ const swrKey = (params: {
   per_page: number;
   page: number;
 }) => ({
-  key: 'market',
+  key: 'holding',
   params,
 });
 
@@ -37,7 +37,7 @@ const fetcher =
       .join(',');
 
     const resp = await fetch(
-      `${api.coingeckoMarkets}?vs_currency=${params.currency}&order=${params.orderBy}&per_page=${params.per_page}&page=${params.page}&sparkline=${params.sparkline}&locale=en&price_change_percentage=${params.priceChangePer}&ids=${ids}`,
+      `${api.coingeckoMarkets}?vs_currency=${params.currency}&order=${params.orderBy}&per_page=${params.per_page}&page=${params.page}&sparkline=${params.sparkline}&&price_change_percentage=${params.priceChangePer}&ids=${ids}`,
     );
     if (resp.status !== 200) {
       throw new Error('Can not fetch the price');
@@ -49,7 +49,8 @@ const fetcher =
         return a.id === item.id;
       });
       let price24d =
-        item.current_price / (1 + item.price_change_percentage_24h * 0.01);
+        item.current_price /
+        (1 + item.price_change_percentage_7d_in_currency * 0.01);
 
       let quntity = coin?.qty ? coin.qty : 0;
 
@@ -61,8 +62,9 @@ const fetcher =
         current_price: item.current_price,
         qty: coin?.qty,
         total: item.current_price * quntity,
-        price_change_percentage_24h: item.price_change_percentage_24h,
-        holding_value_change_24d: (item.current_price - price24d) * quntity,
+        price_change_percentage_7d_in_currency:
+          item.price_change_percentage_7d_in_currency,
+        holding_value_change_7d: (item.current_price - price24d) * quntity,
         sparkline_in_7d: {
           value: item.sparkline_in_7d.price.map(price => price * quntity),
         },

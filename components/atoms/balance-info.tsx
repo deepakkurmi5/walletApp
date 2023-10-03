@@ -22,7 +22,7 @@ const BalanceInfo = ({
         <Text style={{color: colors.lightGray3, ...fonts.h3}}>$</Text>
         <Text
           style={{marginLeft: sizes.base, color: colors.white, ...fonts.h2}}>
-          {balance.toLocaleString()}
+          {balance?.toLocaleString()}
         </Text>
         <Text
           style={{

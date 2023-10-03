@@ -18,7 +18,7 @@ const fetcher =
   () =>
   async ({params}: SWRParams<typeof swrKey>) => {
     const resp = await fetch(
-      `${api.coingeckoMarkets}?vs_currency=${params.currency}&order=${params.orderBy}&per_page=${params.per_page}&page=${params.page}&sparkline=${params.sparkline}&locale=en&price_change_percentage=${params.priceChangePer}`,
+      `${api.coingeckoMarkets}?vs_currency=${params.currency}&order=${params.orderBy}&per_page=${params.per_page}&page=${params.page}&sparkline=${params.sparkline}&price_change_percentage=${params.priceChangePer}`,
     );
     if (resp.status !== 200) {
       throw new Error('Can not fetch the price');

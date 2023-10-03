@@ -4,7 +4,7 @@ export const sizes = {
   radius: 12,
   padding: 24,
 
-  largeTitle: 40,
+  largeTitle: 35,
   h1: 30,
   h2: 22,
   h3: 16,

@@ -1,18 +1,22 @@
-import {View, Text, Image, FlatList, TouchableOpacity} from 'react-native';
+import {View, Text, FlatList, TouchableOpacity, Image} from 'react-native';
 import React from 'react';
-import {colors, sizes, fonts} from '../../theme';
+import {colors, fonts, sizes} from '../../theme';
+import i18n from '../../i18n';
 import {icons} from '../../constants';
 
-const TopCryptocurrency = ({
-  coins,
+const PortfolioAssets = ({
+  myHolding,
   loading,
 }: {
-  coins: {
+  myHolding: {
     id: string;
     price_change_percentage_7d_in_currency: number;
     current_price: number;
     name: string;
     image: string;
+    total: number;
+    qty: number;
+    symbol: string;
   }[];
   loading: boolean;
 }) => {
@@ -26,17 +30,38 @@ const TopCryptocurrency = ({
 
   return (
     <FlatList
-      data={coins}
+      data={myHolding}
       keyExtractor={item => item.id}
       contentContainerStyle={{
-        marginTop: 30,
+        marginTop: sizes.padding,
         paddingHorizontal: sizes.padding,
       }}
       ListHeaderComponent={
-        <View style={{marginBottom: sizes.radius}}>
-          <Text style={{color: colors.white, ...fonts.h3, fontSize: 18}}>
-            Top Cryptocurrency
+        <View>
+          <Text
+            style={{
+              ...fonts.h2,
+              color: colors.white,
+            }}>
+            {i18n.PortfolioAssetsTitle}
           </Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              marginTop: sizes.radius,
+            }}>
+            <Text style={{flex: 1, color: colors.lightGray3}}>
+              {i18n.PortfoloAssetsHeaderOne}
+            </Text>
+            <Text
+              style={{flex: 1, color: colors.lightGray3, textAlign: 'right'}}>
+              {i18n.PortfoloAssetsHeaderTwo}
+            </Text>
+            <Text
+              style={{flex: 1, color: colors.lightGray3, textAlign: 'right'}}>
+              {i18n.PortfoloAssetsHeaderThree}
+            </Text>
+          </View>
         </View>
       }
       renderItem={({item}) => {
@@ -48,36 +73,30 @@ const TopCryptocurrency = ({
             : colors.red;
 
         return (
-          <TouchableOpacity
-            style={{
-              height: 55,
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-            <View style={{width: 35}}>
+          <TouchableOpacity style={{flexDirection: 'row', height: 55}}>
+            <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
               <Image
                 source={{uri: item.image}}
-                style={{
-                  height: 30,
-                  width: 30,
-                  borderRadius: 50,
-                }}
+                style={{width: 20, height: 20}}
               />
-            </View>
-            <View style={{flex: 1}}>
-              <Text style={{color: colors.white, ...fonts.body3}}>
+              <Text
+                style={{
+                  marginLeft: sizes.radius,
+                  color: colors.white,
+                  ...fonts.h4,
+                }}>
                 {item.name}
               </Text>
             </View>
-            <View style={{}}>
+            <View style={{flex: 1, justifyContent: 'center'}}>
               <Text
                 style={{
                   textAlign: 'right',
                   color: colors.white,
                   ...fonts.h4,
+                  lineHeight: 15,
                 }}>
-                $ {item.current_price}
+                ${item.current_price.toLocaleString()}
               </Text>
               <View
                 style={{
@@ -110,12 +129,31 @@ const TopCryptocurrency = ({
                 </Text>
               </View>
             </View>
+            <View style={{flex: 1, justifyContent: 'center'}}>
+              <Text
+                style={{
+                  textAlign: 'right',
+                  color: colors.white,
+                  ...fonts.h4,
+                  lineHeight: 15,
+                }}>
+                $ {item.total.toLocaleString()}
+              </Text>
+              <Text
+                style={{
+                  textAlign: 'right',
+                  color: colors.lightGray3,
+                  ...fonts.body5,
+                  lineHeight: 15,
+                }}>
+                {item.qty} {item.symbol.toUpperCase()}
+              </Text>
+            </View>
           </TouchableOpacity>
         );
       }}
-      ListFooterComponent={<View style={{marginBottom: 50}} />}
     />
   );
 };
 
-export default TopCryptocurrency;
+export default PortfolioAssets;

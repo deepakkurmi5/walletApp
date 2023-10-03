@@ -1,5 +1,6 @@
 import React from 'react';
 
+import {CoingeckoApiParams} from '../constants';
 import SafeArea from '../components/atoms/safe-area';
 import MainLayout from './main-layout';
 import useHoldings from '../hooks/use-holdings';
@@ -8,21 +9,12 @@ import useCoinMarket from '../hooks/use-coin-market';
 import WalletInfo from '../components/organisms/wallet-info';
 import TopCryptocurrency from '../components/organisms/top-cryptocurrency';
 
-let fetchProperties = {
-  currency: 'usd',
-  orderBy: 'market_cap_desc',
-  page: 1,
-  per_page: 10,
-  priceChangePer: '7d',
-  sparkline: true,
-};
-
 const Home = () => {
   const {data: myHolding, isLoading: holdLoading} = useHoldings({
-    ...fetchProperties,
+    ...CoingeckoApiParams,
   });
   const {data: coins, isLoading: coinLoading} = useCoinMarket({
-    ...fetchProperties,
+    ...CoingeckoApiParams,
   });
 
   return (

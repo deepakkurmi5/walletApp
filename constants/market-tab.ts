@@ -1,16 +1,15 @@
-const marketTabs = [
+type marketTabProp = {
+  id: string;
+  title: string;
+};
+
+export const marketTabs: marketTabProp[] = [
   {
-    id: 1,
+    id: '1',
     title: 'Cryptoassets',
   },
   {
-    id: 2,
+    id: '2',
     title: 'Exchanges',
   },
 ];
-
-const tabs = {
-  marketTabs,
-};
-
-export default tabs;
