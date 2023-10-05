@@ -7,6 +7,8 @@ const closeIcon = require('../assets/icons/close.png');
 const transterIcon = require('../assets/icons/transter.png');
 const withdrawIcon = require('../assets/icons/withdraw.png');
 const upArrowIcon = require('../assets/icons/up-arrow.png');
+const verifiedIcon = require('../assets/icons/verified.png');
+const arrowRightIcon = require('../assets/icons/arrow-right.png');
 
 export const icons = {
   homeIcon,
@@ -18,4 +20,6 @@ export const icons = {
   transterIcon,
   withdrawIcon,
   upArrowIcon,
+  verifiedIcon,
+  arrowRightIcon,
 };

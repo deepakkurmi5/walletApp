@@ -1,19 +1,15 @@
 import {View, Text, Image, FlatList, TouchableOpacity} from 'react-native';
 import React from 'react';
+
 import {colors, sizes, fonts} from '../../theme';
 import {icons} from '../../constants';
+import {CoinProps} from '../../types';
 
 const TopCryptocurrency = ({
   coins,
   loading,
 }: {
-  coins: {
-    id: string;
-    price_change_percentage_7d_in_currency: number;
-    current_price: number;
-    name: string;
-    image: string;
-  }[];
+  coins: CoinProps[];
   loading: boolean;
 }) => {
   if (loading) {
