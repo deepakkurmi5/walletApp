@@ -9,3 +9,5 @@ interface MarketTabsProps {
   title: string;
   ref?: RefObject<View>;
 }
+
+declare module '*.png';
